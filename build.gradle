@@ -1,5 +1,5 @@
 apply plugin: 'groovy'
-apply plugin: 'idea'
+# apply plugin: 'idea'
 
 repositories {
     mavenCentral()
@@ -22,11 +22,11 @@ task createSourceDirs(description : 'Create empty source directories for all def
     }
 }
 
-idea {
-    project {
-        jdkName = '1.6'
-    }
-}
+# idea {
+#    project {
+#        jdkName = '1.6'
+#    }
+#}
 
 
 task syncWithRepo(dependsOn: 'classes', type: JavaExec) {
