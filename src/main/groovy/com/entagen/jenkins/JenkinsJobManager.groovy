@@ -30,7 +30,9 @@ class JenkinsJobManager {
 
     void syncWithRepo() {
         List<String> allBranchNames = gitApi.branchNames
+        println 'all branch names: ' + allBranchNames
         List<String> allJobNames = jenkinsApi.jobNames
+        println 'all job names: ' + allJobNames
 
         // ensure that there is at least one job matching the template pattern, collect the set of template jobs
         List<TemplateJob> templateJobs = findRequiredTemplateJobs(allJobNames)
@@ -48,6 +50,10 @@ class JenkinsJobManager {
         List<String> currentTemplateDrivenJobNames = templateDrivenJobNames(templateJobs, allJobNames)
         List<String> nonTemplateBranchNames = allBranchNames - templateBranchName
         List<ConcreteJob> expectedJobs = this.expectedJobs(templateJobs, nonTemplateBranchNames)
+        
+        println 'current template driven job names: ' + currentTemplateDrivenJobNames
+        println 'current non template driven job names: ' + nonTemplateBranchNames
+        println 'current expected job names: ' + expectedJobs
 
         createMissingJobs(expectedJobs, currentTemplateDrivenJobNames, templateJobs)
         if (!noDelete) {
